@@ -34,3 +34,4 @@ done
 	#calculate wages per month
 	totalSalary="$( calculateDailyWage $totalWorkHrs )"
 	echo "Daily wage  ${empDailyWage[@]}"
+	echo "Days  ${!empDailyWage[@]}"
