@@ -3,7 +3,11 @@ empRatePerHr=20
 empFullTimeHrs=8
 empPartTimeHrs=4
 numberOfWorkingDays=20
+maxHrsInMonth=100
+
 totalSalary=0
+totalEmpHr=0
+totalWorkingDays=0
 
 attendance_check=$(( RANDOM%2 ))
 
@@ -18,20 +22,22 @@ else
 	halfSalary=0
 fi
 
-for (( i=1; i<=numberOfWorkingDays; i++ ))
+while [[ $totalEmpHr -lt $maxHrsInMonth && $totalWorkingDays -lt $numberOfWorkingDays ]]
 do
-   empCheck=$(( RANDOM%3 + 1 ))
-   case $empCheck in
-	1)empHrs=8;;
-	2)empHrs=4;;
-	3)empHrs=0;;
-   esac
+	(( totalWorkingDays++ ))
+	empCheck=$(( RANDOM%3 + 1 ))
+	case $empCheck in
+		1)empHrs=8;;
+		2)empHrs=4;;
+		3)empHrs=0;;
+	esac
 
-   totalSalary=$(( $totalSalary + $employeeWage ))
-   employeeWage=$(( $empHrs * $empRatePerHr ))
+	totalEmpHr=$(( $totalEmpHr + $empHrs ))
 done
+
+	totalSalary=$(( $totalEmpHr * $empRatePerHr ))
+
 
 echo "salary of an employee:" $salary
 echo "part time salary of an employee:" $halfSalary
-echo "Employee Wage:" $employeeWage
-echo "Salary per month:" $totalSalary
+echo "Calculated wages of total hours or days for a month :" $totalSalary
